@@ -67,20 +67,40 @@ if user_menu == 'Overall Analysis':
         st.header("Athletes")
         st.title(athletes)
 
+    # nations_over_time = helper.data_over_time(df, 'region')
+    # fig = px.line(nations_over_time, x="Year", y="region")
+    # st.title("Participating Nations over the years")
+    # st.plotly_chart(fig)
+
+    # events_over_time = helper.data_over_time(df, 'Event')
+    # fig = px.line(events_over_time, x="Year", y="Event")
+    # st.title("Events over the years")
+    # st.plotly_chart(fig)
+
+    # athlete_over_time = helper.data_over_time(df, 'Name')
+    # fig = px.line(athlete_over_time, x="Year", y="Name")
+    # st.title("Athletes over the years")
+    # st.plotly_chart(fig)
+    
+    # ... Existing code ...
+
     nations_over_time = helper.data_over_time(df, 'region')
-    fig = px.line(nations_over_time, x="Year", y="region")
+    fig = px.line(nations_over_time, x="Year", y="Count")
     st.title("Participating Nations over the years")
     st.plotly_chart(fig)
 
     events_over_time = helper.data_over_time(df, 'Event')
-    fig = px.line(events_over_time, x="Year", y="Event")
+    fig = px.line(events_over_time, x="Year", y="Count")
     st.title("Events over the years")
     st.plotly_chart(fig)
 
     athlete_over_time = helper.data_over_time(df, 'Name')
-    fig = px.line(athlete_over_time, x="Year", y="Name")
+    fig = px.line(athlete_over_time, x="Year", y="Count")
     st.title("Athletes over the years")
     st.plotly_chart(fig)
+
+    # ... Existing code ...
+
 
     st.title("No. of Events over time(Every Sport)")
     fig,ax = plt.subplots(figsize=(20,20))
