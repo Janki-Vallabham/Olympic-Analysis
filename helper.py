@@ -85,15 +85,27 @@ def country_event_heatmap(df,country):
     return pt
 
 
-def most_successful_countrywise(df, country):
+# def most_successful_countrywise(df, country):
+#     temp_df = df.dropna(subset=['Medal'])
+
+#     temp_df = temp_df[temp_df['region'] == country]
+
+#     x = temp_df['Name'].value_counts().reset_index().head(10).merge(df, left_on='index', right_on='Name', how='left')[
+#         ['index', 'Name_x', 'Sport']].drop_duplicates('index')
+#     x.rename(columns={'index': 'Name', 'Name_x': 'Medals'}, inplace=True)
+#     return x
+def most_successful(df, sport):
     temp_df = df.dropna(subset=['Medal'])
 
-    temp_df = temp_df[temp_df['region'] == country]
+    if sport != 'Overall':
+        temp_df = temp_df[temp_df['Sport'] == sport]
 
-    x = temp_df['Name'].value_counts().reset_index().head(10).merge(df, left_on='index', right_on='Name', how='left')[
-        ['index', 'Name_x', 'Sport']].drop_duplicates('index')
-    x.rename(columns={'index': 'Name', 'Name_x': 'Medals'}, inplace=True)
+    x = temp_df['Name'].value_counts().head(15).reset_index()
+    x.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
+    x = x.merge(df, left_on='Name', right_on='Name', how='left')[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
+    
     return x
+
 
 def weight_v_height(df,sport):
     athlete_df = df.drop_duplicates(subset=['Name', 'region'])
