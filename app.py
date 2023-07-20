@@ -109,6 +109,17 @@ if user_menu == 'Overall Analysis':
                 annot=True)
     st.pyplot(fig)
 
+    # st.title("Most successful Athletes")
+    # sport_list = df['Sport'].unique().tolist()
+    # sport_list.sort()
+    # sport_list.insert(0,'Overall')
+
+    # selected_sport = st.selectbox('Select a Sport',sport_list)
+    # x = helper.most_successful(df,selected_sport)
+    # st.table(x)
+    
+    # ... Existing code ...
+
     st.title("Most successful Athletes")
     sport_list = df['Sport'].unique().tolist()
     sport_list.sort()
@@ -117,6 +128,9 @@ if user_menu == 'Overall Analysis':
     selected_sport = st.selectbox('Select a Sport',sport_list)
     x = helper.most_successful(df,selected_sport)
     st.table(x)
+
+    # ... Existing code ...
+
 
 # Rest of the code for other user_menu options remains unchanged
 
