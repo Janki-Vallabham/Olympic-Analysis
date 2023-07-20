@@ -65,6 +65,7 @@ def data_over_time(df, col):
 #         ['index', 'Name_x', 'Sport', 'region']].drop_duplicates('index')
 #     x.rename(columns={'index': 'Name', 'Name_x': 'Medals'}, inplace=True)
 #     return x
+
 def most_successful(df, sport):
     temp_df = df.dropna(subset=['Medal'])
 
@@ -75,12 +76,9 @@ def most_successful(df, sport):
     most_successful_athletes.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
 
     # Merge with original DataFrame ('df') to retrieve additional information
-    x = most_successful_athletes.merge(df[['Name', 'Sport', 'region']].drop_duplicates(), on='Name', how='left')
-    x = x[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
+    x = most_successful_athletes.merge(df[['Name', 'Sport', 'region']], on='Name', how='left').drop_duplicates('Name')
 
     return x
-
-
 
 def yearwise_medal_tally(df,country):
     temp_df = df.dropna(subset=['Medal'])
