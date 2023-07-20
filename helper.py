@@ -75,9 +75,11 @@ def most_successful(df, sport):
     most_successful_athletes.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
 
     # Merge with original DataFrame ('df') to retrieve additional information
-    x = most_successful_athletes.merge(df, on='Name', how='left')[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
-    
+    x = most_successful_athletes.merge(df[['Name', 'Sport', 'region']].drop_duplicates(), on='Name', how='left')
+    x = x[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
+
     return x
+
 
 
 def yearwise_medal_tally(df,country):
