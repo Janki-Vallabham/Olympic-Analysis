@@ -113,8 +113,10 @@ def most_successful_countrywise(df, country):
     temp_df = df.dropna(subset=['Medal'])
     temp_df = temp_df[temp_df['region'] == country]
 
-    most_successful_athletes = temp_df['Name'].value_counts().head(10).reset_index()
-    most_successful_athletes.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
+    # Group by athlete name and count medals, then get the top 10 athletes with the most medals
+    most_successful_athletes = temp_df.groupby('Name')['Medal'].count().reset_index()
+    most_successful_athletes.rename(columns={'Medal': 'Medals'}, inplace=True)
+    most_successful_athletes = most_successful_athletes.nlargest(10, 'Medals')
 
     # Merge with original DataFrame ('df') to retrieve additional information
     x = most_successful_athletes.merge(df[['Name', 'Sport', 'region']], on='Name', how='left').drop_duplicates('Name')
