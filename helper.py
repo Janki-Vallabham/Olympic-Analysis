@@ -71,11 +71,14 @@ def most_successful(df, sport):
     if sport != 'Overall':
         temp_df = temp_df[temp_df['Sport'] == sport]
 
-    x = temp_df['Name'].value_counts().head(15).reset_index()
-    x.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
-    x = x.merge(df, left_on='Name', right_on='Name', how='left')[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
+    most_successful_athletes = temp_df['Name'].value_counts().head(15).reset_index()
+    most_successful_athletes.rename(columns={'index': 'Name', 'Name': 'Medals'}, inplace=True)
+
+    # Merge with original DataFrame ('df') to retrieve additional information
+    x = most_successful_athletes.merge(df, on='Name', how='left')[['Name', 'Medals', 'Sport', 'region']].drop_duplicates('Name')
     
     return x
+
 
 def yearwise_medal_tally(df,country):
     temp_df = df.dropna(subset=['Medal'])
