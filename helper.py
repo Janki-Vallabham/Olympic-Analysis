@@ -41,11 +41,18 @@ def country_year_list(df):
 
     return years,country
 
-def data_over_time(df,col):
+# def data_over_time(df,col):
 
-    nations_over_time = df.drop_duplicates(['Year', col])['Year'].value_counts().reset_index().sort_values('Year')
-    nations_over_time.rename(columns={'index': 'Edition', 'Year': col}, inplace=True)
-    return nations_over_time
+    # nations_over_time = df.drop_duplicates(['Year', col])['Year'].value_counts().reset_index().sort_values('Year')
+    # nations_over_time.rename(columns={'index': 'Edition', 'Year': col}, inplace=True)
+    # return nations_over_time
+
+def data_over_time(df, col):
+    data_over_time_df = df.drop_duplicates(['Year', col])[['Year', col]]
+    data_over_time_df = data_over_time_df.groupby('Year').count().reset_index()
+    data_over_time_df.rename(columns={col: 'Count'}, inplace=True)
+    return data_over_time_df
+
 
 
 def most_successful(df, sport):
